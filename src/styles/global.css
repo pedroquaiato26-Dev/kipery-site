@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+/*
+ * Identidade visual da Kipery (a mesma do sistema): índigo #6366F1 + violeta #8B5CF6, com tinta e
+ * superfícies em tons de ardósia. Os nomes dos tokens (ink, surface, border...) seguem os do sistema
+ * para que um trecho de layout possa ser trazido de lá sem tradução — mas nada é importado de lá.
+ */
+@theme {
+  --font-sans: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+  --color-primary-light: #eef2ff;
+  --color-accent: #8b5cf6;
+  --color-accent-light: #f5f3ff;
+  --color-success: #10b981;
+  --color-success-light: #ecfdf5;
+
+  --color-ink: #0f172a;
+  --color-ink-muted: #64748b;
+  --color-ink-subtle: #94a3b8;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-border: #e2e8f0;
+
+  --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.04);
+  --shadow-card: 0 0 0 1px rgb(15 23 42 / 0.04), 0 2px 8px rgb(15 23 42 / 0.04);
+  --shadow-elevated: 0 0 0 1px rgb(15 23 42 / 0.04), 0 8px 32px rgb(15 23 42 / 0.08);
+  --shadow-glow: 0 0 40px -8px rgb(99 102 241 / 0.35);
+
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+
+  --animate-fade-up: fade-up 0.25s ease-out;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Fundos decorativos do hero e dos blocos escuros. */
+@utility bg-grid-pattern {
+  background-image: linear-gradient(rgb(99 102 241 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(99 102 241 / 0.03) 1px, transparent 1px);
+}
+
+@utility bg-grid {
+  background-size: 64px 64px;
+}
+
+@utility bg-hero-glow {
+  background-image: radial-gradient(ellipse 80% 60% at 50% -20%, rgb(99 102 241 / 0.15), transparent);
+}
+
+@utility bg-mesh {
+  background-image: radial-gradient(at 27% 37%, rgb(99 102 241 / 0.08) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgb(139 92 246 / 0.08) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgb(16 185 129 / 0.06) 0px, transparent 50%);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: rgb(99 102 241 / 0.2);
+  }
+}
+
+/*
+ * Componentes compostos no HTML (`btn btn-accent btn-lg`): no Tailwind 4 uma classe própria não pode
+ * ser aplicada dentro de outra com @apply, então a base `.btn` vem sempre explícita na marcação.
+ * Ficam em `components` para que utilitários (w-full, mt-7...) ainda consigam sobrescrevê-los.
+ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-150;
+  }
+
+  .btn-accent {
+    @apply text-white active:scale-[0.98];
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    box-shadow: 0 2px 8px rgb(99 102 241 / 0.3);
+  }
+
+  .btn-accent:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 4px 16px rgb(99 102 241 / 0.4);
+  }
+
+  .btn-outline {
+    @apply border border-border bg-surface text-ink shadow-xs hover:border-primary/30 hover:bg-primary-light active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply text-ink-muted hover:bg-ink/5 hover:text-ink;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+
+  .card {
+    @apply rounded-2xl border border-border/80 bg-surface p-6 shadow-card backdrop-blur-sm;
+  }
+
+  .badge-primary {
+    @apply inline-flex items-center rounded-md bg-primary-light px-2 py-0.5 text-xs font-semibold text-primary;
+  }
+
+  .gradient-text {
+    @apply bg-linear-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .section-label {
+    @apply text-xs font-semibold tracking-widest text-primary uppercase;
+  }
+}

@@ -1,0 +1,22 @@
+---
+/* Marca Kipery: símbolo (PNG transparente, funciona em fundo claro e escuro) + nome em texto. */
+interface Props {
+  size?: number;
+  tone?: 'default' | 'light';
+}
+
+const { size = 40, tone = 'default' } = Astro.props;
+---
+
+<span class="inline-flex items-center gap-2">
+  <img
+    src={size > 64 ? '/brand/kipery-icon-512.png' : '/brand/kipery-icon-128.png'}
+    alt=""
+    width={size}
+    height={size}
+    class="shrink-0 select-none object-contain"
+  />
+  <span class:list={['font-display font-bold tracking-tight', size > 36 ? 'text-xl' : 'text-lg', tone === 'light' ? 'text-white' : 'text-ink']}>
+    Kipery
+  </span>
+</span>
